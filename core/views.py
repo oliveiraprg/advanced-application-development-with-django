@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse('Collaborators')
+    return render(request, 'core/index.html')
