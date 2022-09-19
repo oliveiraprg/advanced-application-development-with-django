@@ -1,6 +1,42 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from .models import Collaborator
+from django.contrib.auth.models import User
 
 
-def home(request):
-    return HttpResponse('Collaborators')
+class CollaboratorsListView(ListView):
+    model = Collaborator
+    paginate_by = 25
+    
+    def get_queryset(self):
+        company = self.request.user.collaborator.company
+        collaborator_list = Collaborator.objects.filter(company=company.pk)
+        return collaborator_list
+
+
+class CollaboratorCreateView(CreateView):
+    model = Collaborator
+    fields = ['name']
+    template_name = 'collaborators/collaborator_create.html'
+
+    def form_valid(self, form):
+        collaborator = form.save(commit=False)
+        company = self.request.user.collaborator.company
+        collaborator.company = company
+        username_collaborator = str(collaborator.name.split(' ')[0] + collaborator.name.split(' ')[-1]).lower()
+        collaborator.user = User.objects.create(username=username_collaborator)
+        collaborator.save()
+        return super(CollaboratorCreateView, self).form_valid(form)
+
+
+class CollaboratorEditView(UpdateView):
+    model = Collaborator
+    fields = ['name']
+    template_name = 'collaborators/collaborator_update.html'
+
+
+class CollaboratorDeleteView(DeleteView):
+    model = Collaborator
+    template_name = 'collaborators/collaborator_delete.html'
+    success_url = reverse_lazy('collaborators:list_collaborators')

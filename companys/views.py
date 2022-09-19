@@ -7,7 +7,7 @@ from .models import Company
 class CompanyCreateView(CreateView):
     model = Company
     fields = ['name']
-    template_name = 'companys/create_company.html'
+    template_name = 'companys/company_create.html'
 
     def form_valid(self, form):
         obj = form.save() 
@@ -20,4 +20,4 @@ class CompanyCreateView(CreateView):
 class CompanyEditView(UpdateView):
     model = Company
     fields = ['name']
-    template_name = 'companys/update_company.html'
+    template_name = 'companys/company_update.html'

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main %} 
+
+  <h2>Collaborators: 
+    <small><a href="{% url 'collaborators:create_collaborators' %}" class="btn btn-success btn-sm">Create collaborator</a></small>
+  </h2>
+  
+  <ul>
+    {% for collaborator in collaborator_list%}
+      <li>
+          <p>
+            {{collaborator}}
+            <a href="{% url 'collaborators:edit_collaborators' collaborator.pk %}" class="btn btn-info btn-sm">Update</a>
+            <a href="{% url 'collaborators:delete_collaborators' collaborator.pk %}" class="btn btn-danger btn-sm">Delete</a>
+          </p>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
