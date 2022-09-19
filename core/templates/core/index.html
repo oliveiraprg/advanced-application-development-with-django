@@ -9,9 +9,9 @@
     <div class="col">
         {% if user.collaborator.company %}
             <p>{{user.collaborator.company}}</p>
-            <a href="{% url 'logout' %}">Edit company</a>
+            <a href="{% url 'company:edit-company' user.collaborator.company.pk %}">Edit company</a>
         {% else %}
-            <a href="{% url 'logout' %}">Create company</a>
+            <a href="{% url 'company:create-company' %}">Create company</a>
         {% endif %}
     </div>
     <div class="col">
