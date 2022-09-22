@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 
-{% block main %} 
-
-<div class="row">
-    <div class="col">
-        <p>Hello {{user.collaborator.name}}</p>
-        <a href="{% url 'collaborators:list_collaborators' %}">Collaborators</a>
-        <a href="{% url 'departments:list_departments' %}">Departments</a>
-    </div>
-    <div class="col">
-        {% if user.collaborator.company %}
-            <p>{{user.collaborator.company}}</p>
-            <a href="{% url 'company:edit_company' user.collaborator.company.pk %}">Edit company</a>
-        {% else %}
-            <a href="{% url 'company:create_company' %}">Create company</a>
-        {% endif %}
-    </div>
-    <div class="col">
-        <a href="{% url 'logout' %}">Logout</a>
+{% block main %}
+<h1 class="mt-4">Home page</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Dashboard</a></li>
+</ol>
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">{{company}}</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">Collaborators: {{ collaborator_list|length }}</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="{% url 'collaborators:list_collaborators' %}">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 {% endblock %}
