@@ -43,7 +43,10 @@
                     <tbody>
                         {% for collaborator in collaborator_list%}
                         <tr>
-                            <td>{{collaborator}}</td>
+                            <td>
+                                <a href="{% url 'collaborators:detail_collaborator' collaborator.pk %}"
+                                    class="btn btn-info btn-sm">{{collaborator}}
+                                </a></td>
                             <td>{{collaborator.position}}</td>
                             <td>
                                 {% for department in collaborator.departments.all %}
@@ -54,9 +57,14 @@
                             <td>${{collaborator.salary}}</td>
                             <td>
                                 <a href="{% url 'collaborators:edit_collaborator' collaborator.pk %}"
-                                    class="btn btn-info btn-sm">Update</a>
+                                    class="btn btn-info btn-sm">Update
+                                </a>
                                 <a href="{% url 'collaborators:delete_collaborator' collaborator.pk %}"
-                                    class="btn btn-danger btn-sm">Delete</a>
+                                    class="btn btn-danger btn-sm">Delete
+                                </a>
+                                <a href="{% url 'documents:create_document' collaborator.pk %}"
+                                    class="btn btn-success btn-sm">Create documents
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}

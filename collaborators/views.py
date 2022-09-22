@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
 from .models import Collaborator
+from documents.models import Document
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -40,3 +41,12 @@ class CollaboratorDeleteView(LoginRequiredMixin, DeleteView):
     model = Collaborator
     template_name = 'collaborators/collaborator_delete.html'
     success_url = reverse_lazy('collaborators:list_collaborators')
+
+
+class CollaboratorDetailView(DetailView):
+    model = Collaborator
+    template_name = 'collaborators/collaborator_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
