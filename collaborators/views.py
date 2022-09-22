@@ -1,11 +1,11 @@
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from .models import Collaborator
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CollaboratorsListView(ListView):
+class CollaboratorListView(LoginRequiredMixin, ListView):
     model = Collaborator
     paginate_by = 25
     
@@ -15,7 +15,7 @@ class CollaboratorsListView(ListView):
         return collaborator_list
 
 
-class CollaboratorCreateView(CreateView):
+class CollaboratorCreateView(LoginRequiredMixin, CreateView):
     model = Collaborator
     fields = ['name']
     template_name = 'collaborators/collaborator_create.html'
@@ -30,13 +30,13 @@ class CollaboratorCreateView(CreateView):
         return super(CollaboratorCreateView, self).form_valid(form)
 
 
-class CollaboratorEditView(UpdateView):
+class CollaboratorEditView(LoginRequiredMixin, UpdateView):
     model = Collaborator
-    fields = ['name']
+    fields = ['name', 'departments']
     template_name = 'collaborators/collaborator_update.html'
 
 
-class CollaboratorDeleteView(DeleteView):
+class CollaboratorDeleteView(LoginRequiredMixin, DeleteView):
     model = Collaborator
     template_name = 'collaborators/collaborator_delete.html'
     success_url = reverse_lazy('collaborators:list_collaborators')

@@ -2,9 +2,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Company
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CompanyCreateView(CreateView):
+class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = Company
     fields = ['name']
     template_name = 'companys/company_create.html'
@@ -17,7 +18,7 @@ class CompanyCreateView(CreateView):
         return HttpResponseRedirect(reverse('core:home'))
 
 
-class CompanyEditView(UpdateView):
+class CompanyEditView(LoginRequiredMixin, UpdateView):
     model = Company
     fields = ['name']
     template_name = 'companys/company_update.html'
