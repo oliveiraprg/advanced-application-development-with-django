@@ -17,7 +17,7 @@ class CollaboratorListView(LoginRequiredMixin, ListView):
 
 class CollaboratorCreateView(LoginRequiredMixin, CreateView):
     model = Collaborator
-    fields = ['name']
+    fields = ['name', 'position', 'salary', 'departments']
     template_name = 'collaborators/collaborator_create.html'
 
     def form_valid(self, form):
@@ -32,7 +32,7 @@ class CollaboratorCreateView(LoginRequiredMixin, CreateView):
 
 class CollaboratorEditView(LoginRequiredMixin, UpdateView):
     model = Collaborator
-    fields = ['name', 'departments']
+    fields = ['name', 'position', 'salary', 'departments']
     template_name = 'collaborators/collaborator_update.html'
 
 

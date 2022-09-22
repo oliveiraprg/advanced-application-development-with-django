@@ -1,21 +1,65 @@
 {% extends 'base.html' %}
 
-{% block main %} 
-
-  <h2>Collaborators: 
-    <small><a href="{% url 'collaborators:create_collaborators' %}" class="btn btn-success btn-sm">Create collaborator</a></small>
-  </h2>
-  
-  <ul>
-    {% for collaborator in collaborator_list%}
-      <li>
-          <p>
-            {{collaborator}}
-            <a href="{% url 'collaborators:edit_collaborators' collaborator.pk %}" class="btn btn-info btn-sm">Update</a>
-            <a href="{% url 'collaborators:delete_collaborators' collaborator.pk %}" class="btn btn-danger btn-sm">Delete</a>
-          </p>
-      </li>
-    {% endfor %}
-  </ul>
-
+{% block main %}
+<h1 class="mt-4">Collaborators list</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Collaborators list <a href="{% url 'collaborators:create_collaborator' %}"
+            class="btn btn-success btn-sm">Create collaborator</a></li>
+</ol>
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Collaborators :
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Department</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                            <th>Manage</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Department</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                            <th>Manage</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for collaborator in collaborator_list%}
+                        <tr>
+                            <td>{{collaborator}}</td>
+                            <td>{{collaborator.position}}</td>
+                            <td>
+                                {% for department in collaborator.departments.all %}
+                                {{ department }}
+                                {% endfor %}
+                            </td>
+                            <td>{{collaborator.user.date_joined}}</td>
+                            <td>${{collaborator.salary}}</td>
+                            <td>
+                                <a href="{% url 'collaborators:edit_collaborator' collaborator.pk %}"
+                                    class="btn btn-info btn-sm">Update</a>
+                                <a href="{% url 'collaborators:delete_collaborator' collaborator.pk %}"
+                                    class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -7,6 +7,8 @@ from django.urls import reverse
 
 class Collaborator(models.Model):
     name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+    salary = models.DecimalField(decimal_places=2, max_digits=15, blank=True, default=0)
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     departments = models.ManyToManyField(Department, blank=True)
     company = models.ForeignKey(Company, on_delete=models.PROTECT, 
@@ -16,4 +18,4 @@ class Collaborator(models.Model):
         return reverse('collaborators:list_collaborators')
         
     def __str__(self):
-        return f'{self.name} - {self.company}'
+        return f'{self.name}'
