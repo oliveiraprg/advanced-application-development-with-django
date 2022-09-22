@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1 class="mt-4">Update department: {{department}}</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'departments:list_departments' %}">Department list</a></li>
+    <li class="breadcrumb-item active">Update department: {{department}}</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <button type="submit" class="btn btn-success">Update</button>
+            <a href="{% url 'departments:list_departments'  %}" class="btn btn-info btn-sm">Cancel</a>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

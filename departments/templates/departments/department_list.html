@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1 class="mt-4">Departments list</h1>
+<ol class="breadcrumb mb-4">
+	<li class="breadcrumb-item"><a href="{% url 'core:home' %}">Dashboard</a></li>
+	<li class="breadcrumb-item active">Departments list 
+		<a href="{% url 'departments:create_department' %}"
+			class="btn btn-success btn-sm">Create Departments
+		</a>
+	</li>
+</ol>
+<div class="card mb-4">
+	<div class="card-body">
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-table me-1"></i>
+				Departments :
+			</div>
+			<div class="card-body">
+				<table id="datatablesSimple">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Collaborators</th>
+							<th>Payroll</th>
+							<th>Manage</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Name</th>
+							<th>Collaborators</th>
+							<th>Payroll</th>
+							<th>Manage</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						{% for department in department_list %}
+						<tr>
+							<td>{{department}}</td>
+							<td>0</td>
+							<td>0</td>
+							<td>
+								<a href="{% url 'departments:edit_department' department.pk %}" class="btn btn-info btn-sm">Update</a>
+								<a href="{% url 'departments:delete_department' department.pk %}" class="btn btn-danger btn-sm">Delete</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
