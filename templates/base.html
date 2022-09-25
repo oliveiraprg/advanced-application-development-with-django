@@ -41,7 +41,7 @@
                         {% if user.collaborator.company %}
                         <a class="nav-link" href="{% url 'company:edit_company' user.collaborator.company.pk %}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            {{user.collaborator.company}}
+                            Manage company: {{user.collaborator.company}}
                         </a>
                         {% else %}
                         <a class="nav-link" href="{% url 'company:create_company' %}">
@@ -51,15 +51,19 @@
                         {% endif %}
                         <a class="nav-link" href="{% url 'collaborators:list_collaborators' %}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Collaborators
+                            Manage Collaborators
                         </a>
                         <a class="nav-link" href="{% url 'departments:list_departments' %}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Departments
+                            Manage Departments
                         </a>
                         <a class="nav-link" href="{% url 'documents:list_documents' %}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Documents
+                            Manage Documents
+                        </a>
+                        <a class="nav-link" href="{% url 'overtime_worked:list_overtime_worked' %}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Manage Overtime Worked
                         </a>
                         <!-- <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">

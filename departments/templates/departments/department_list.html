@@ -38,8 +38,10 @@
 						{% for department in department_list %}
 						<tr>
 							<td>{{department}}</td>
-							<td>0</td>
-							<td>0</td>
+							<td>{{department.collaborator_set.all|length}}</td>
+							<td>
+									{{department.collaborator_set.all}}
+							</td>
 							<td>
 								<a href="{% url 'departments:edit_department' department.pk %}" class="btn btn-info btn-sm">Update</a>
 								<a href="{% url 'departments:delete_department' department.pk %}" class="btn btn-danger btn-sm">Delete</a>

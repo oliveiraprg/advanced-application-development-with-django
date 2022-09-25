@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class OvertimeRecordConfig(AppConfig):
+class OvertimeWorkedConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'overtime_record'
+    name = 'overtime_worked'
