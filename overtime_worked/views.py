@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from .models import OvertimeWorked
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, CreateView, DeleteView
-from django.views.generic import TemplateView
+from django.views.generic import UpdateView, CreateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import OvertimeWorkedForm
 
 
 class OvertimeWorkedListView(LoginRequiredMixin, TemplateView):
@@ -19,9 +19,8 @@ class OvertimeWorkedListView(LoginRequiredMixin, TemplateView):
 
 
 class OvertimeWorkedCreateView(LoginRequiredMixin, CreateView):
-    model = OvertimeWorked
-    fields = ['owner', 'reason', 'amount_hours']
     template_name = 'overtime_worked/overtime_worked_create.html'
+    form_class = OvertimeWorkedForm
 
     def form_valid(self, form):
         overtime_worked = form.save(commit=False)
@@ -32,8 +31,7 @@ class OvertimeWorkedCreateView(LoginRequiredMixin, CreateView):
 
 
 class OvertimeWorkedEditView(LoginRequiredMixin, UpdateView):
-    model = OvertimeWorked
-    fields = ['reason', 'amount_hours']
+    form_class = OvertimeWorkedForm
     template_name = 'overtime_worked/overtime_worked_update.html'
 
 

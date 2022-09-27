@@ -1,14 +1,13 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
 from .models import Collaborator
-from documents.models import Document
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CollaboratorForm
 
 
 class CollaboratorListView(LoginRequiredMixin, ListView):
     model = Collaborator
-    paginate_by = 25
     
     def get_queryset(self):
         company = self.request.user.collaborator.company
@@ -17,8 +16,7 @@ class CollaboratorListView(LoginRequiredMixin, ListView):
 
 
 class CollaboratorCreateView(LoginRequiredMixin, CreateView):
-    model = Collaborator
-    fields = ['name', 'position', 'salary', 'departments']
+    form_class = CollaboratorForm
     template_name = 'collaborators/collaborator_create.html'
 
     def form_valid(self, form):
@@ -32,8 +30,7 @@ class CollaboratorCreateView(LoginRequiredMixin, CreateView):
 
 
 class CollaboratorEditView(LoginRequiredMixin, UpdateView):
-    model = Collaborator
-    fields = ['name', 'position', 'salary', 'departments']
+    form_class = CollaboratorForm
     template_name = 'collaborators/collaborator_update.html'
 
 

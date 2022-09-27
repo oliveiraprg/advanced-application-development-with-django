@@ -1,13 +1,12 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Company
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CompanyForm
 
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
-    model = Company
-    fields = ['name']
+    form_class = CompanyForm
     template_name = 'companys/company_create.html'
 
     def form_valid(self, form):
@@ -19,6 +18,5 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
 
 
 class CompanyEditView(LoginRequiredMixin, UpdateView):
-    model = Company
-    fields = ['name']
+    form_class = CompanyForm
     template_name = 'companys/company_update.html'

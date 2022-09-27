@@ -2,9 +2,9 @@ from django.shortcuts import render
 from .models import Department
 from django.urls import reverse_lazy
 from collaborators.models import Collaborator
-from django.views.generic import UpdateView, CreateView, DeleteView
-from django.views.generic import TemplateView
+from django.views.generic import UpdateView, CreateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import DepartmentForm
 
 
 class DepartmentListView(LoginRequiredMixin, TemplateView):
@@ -15,6 +15,7 @@ class DepartmentListView(LoginRequiredMixin, TemplateView):
         company = self.request.user.collaborator.company
         collaborator_list = Collaborator.objects.filter(company=company.pk)
         department_list = Department.objects.filter(company=company)
+        payroll_list = Collaborator.objects.filter(company=company.pk)
         context['company'] = company
         context['collaborator'] = self.request.user.collaborator
         context['collaborator_list'] = collaborator_list
@@ -23,8 +24,7 @@ class DepartmentListView(LoginRequiredMixin, TemplateView):
 
 
 class DepartmentCreateView(LoginRequiredMixin, CreateView):
-    model = Department
-    fields = ['name']
+    form_class = DepartmentForm
     template_name = 'departments/department_create.html'
 
     def form_valid(self, form):
@@ -35,9 +35,8 @@ class DepartmentCreateView(LoginRequiredMixin, CreateView):
         return super(DepartmentCreateView, self).form_valid(form)
 
 
-class DepartmentEditView(LoginRequiredMixin, UpdateView):
-    model = Department
-    fields = ['name']
+class DepartmentUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = DepartmentForm
     template_name = 'departments/department_update.html'
 
 
