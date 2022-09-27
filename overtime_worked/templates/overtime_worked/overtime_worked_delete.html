@@ -9,7 +9,7 @@
 <div class="card mb-4">
 	<div class="card-body">
 		<form method="post">
-			<strong>Are you sure you want to delete the user: {{overtime_worked}}</strong>
+			<strong>Are you sure you want to delete: {{overtime_worked}}</strong>
 			{% csrf_token %}
 			{{ form.as_div }}
 			<button type="submit" class="btn btn-danger">Delete</button>
