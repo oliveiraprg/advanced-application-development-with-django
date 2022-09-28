@@ -9,8 +9,12 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
     def get(self, request):
         context = {}
-        company = self.request.user.collaborator.company
-        collaborator_list = Collaborator.objects.filter(company=company.pk)
+        if self.request.user.collaborator.company:
+            company = self.request.user.collaborator.company
+            collaborator_list = Collaborator.objects.filter(company=company.pk)
+        else:
+            company = None
+            collaborator_list = None
         context['company'] = company 
         context['collaborator'] = self.request.user.collaborator
         context['collaborator_list'] = collaborator_list

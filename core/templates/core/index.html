@@ -5,6 +5,7 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Dashboard</a></li>
 </ol>
+{% if user.collaborator.company %}
 <div class="card mb-4">
     <div class="card-body">
         <div class="col-xl-3 col-md-6">
@@ -27,4 +28,14 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="card mb-4">
+    <div class="card-body">
+        <p class="mb-0">
+            Welcome to the homepage, create a company to take advantage of all the system's features
+        </p>
+        <a class="btn btn-success" href="{% url 'company:create_company' %}">Create company</a>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

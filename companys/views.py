@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CompanyForm
+from .models import Company
 
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
@@ -18,5 +19,6 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
 
 
 class CompanyEditView(LoginRequiredMixin, UpdateView):
-    form_class = CompanyForm
+    model = Company
+    fields = ['name']
     template_name = 'companys/company_update.html'
