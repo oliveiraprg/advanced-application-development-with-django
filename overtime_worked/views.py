@@ -22,12 +22,10 @@ class OvertimeWorkedCreateView(LoginRequiredMixin, CreateView):
     template_name = 'overtime_worked/overtime_worked_create.html'
     form_class = OvertimeWorkedForm
 
-    def form_valid(self, form):
-        overtime_worked = form.save(commit=False)
-        company = self.request.user.collaborator.company
-        overtime_worked.company = company
-        overtime_worked.save()
-        return super(OvertimeWorkedCreateView, self).form_valid(form)
+    def get_form_kwargs(self) :
+        kwargs = super(OvertimeWorkedCreateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class OvertimeWorkedEditView(LoginRequiredMixin, UpdateView):
