@@ -6,7 +6,7 @@ class DepartmentForm(ModelForm):
 
     class Meta:
         model = Department
-        fields = '__all__'
+        fields = ['name']
    
     def __init__(self, *args, **kwargs):
         super(DepartmentForm, self).__init__(*args, **kwargs)

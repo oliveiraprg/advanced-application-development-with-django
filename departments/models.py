@@ -1,6 +1,7 @@
 from django.db import models
 from companys.models import Company
 from django.urls import reverse
+from django.db.models import Sum
 
 
 class Department(models.Model):
@@ -9,6 +10,11 @@ class Department(models.Model):
 
     def get_absolute_url(self):
         return reverse('departments:list_departments')
+
+    @property
+    def total_payroll(self):
+        payroll = self.collaborator_set.all().aggregate(Sum('salary'))['salary__sum']
+        return payroll
 
     def __str__(self):
         return f'{self.name}'
