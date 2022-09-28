@@ -11,7 +11,7 @@
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
-            {{ form.as_div }}
+            {{ form.as_p}}
             <button type="submit" class="btn btn-success">Update</button>
             <a href="{% url 'collaborators:list_collaborators'  %}" class="btn btn-info btn-sm">Cancel</a>
         </form>

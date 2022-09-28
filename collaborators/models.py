@@ -10,9 +10,8 @@ class Collaborator(models.Model):
     position = models.CharField(max_length=100)
     salary = models.DecimalField(decimal_places=2, max_digits=15, blank=True, default=0)
     user = models.OneToOneField(User, on_delete=models.PROTECT)
-    departments = models.ManyToManyField(Department, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, 
-                                null=True, blank=True)
+    departments = models.ForeignKey(Department, on_delete=models.PROTECT, null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('collaborators:list_collaborators')

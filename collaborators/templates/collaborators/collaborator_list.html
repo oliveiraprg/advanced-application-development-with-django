@@ -48,11 +48,7 @@
                                     class="btn btn-info btn-sm">{{collaborator}}
                                 </a></td>
                             <td>{{collaborator.position}}</td>
-                            <td>
-                                {% for department in collaborator.departments.all %}
-                                {{ department }}
-                                {% endfor %}
-                            </td>
+                            <td>{{collaborator.departments}}</td>
                             <td>{{collaborator.user.date_joined}}</td>
                             <td>${{collaborator.salary}}</td>
                             <td>
