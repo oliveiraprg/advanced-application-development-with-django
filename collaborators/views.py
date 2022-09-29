@@ -1,19 +1,31 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
+from django.views.generic import TemplateView, UpdateView, CreateView, DeleteView, DetailView
 from .models import Collaborator
+from departments.models import Department
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CollaboratorForm
 from random import randint
+from django.db.models import Sum, Avg
+from django.shortcuts import render
 
 
-class CollaboratorListView(LoginRequiredMixin, ListView):
-    model = Collaborator
-    
-    def get_queryset(self):
+class CollaboratorListView(LoginRequiredMixin, TemplateView):
+    template_name = 'collaborators/collaborator_list.html'
+
+    def get(self, request):
+        context = {}
         company = self.request.user.collaborator.company
         collaborator_list = Collaborator.objects.filter(company=company.pk)
-        return collaborator_list
+        payroll_list = {}
+        payroll_list['payroll_sum'] = Collaborator.objects.filter(company=company.pk).filter(is_fired=False).aggregate(Sum('salary'))['salary__sum']
+        payroll_list['payroll_avg'] = Collaborator.objects.filter(company=company.pk).filter(is_fired=False).aggregate(Avg('salary'))['salary__avg']
+        context['payroll_list'] = payroll_list
+        context['collaborator_list'] = collaborator_list
+        context['company'] = company
+        print(context)
+        print('caralho')
+        return render(request, self.template_name, context)
 
 
 class CollaboratorCreateView(LoginRequiredMixin, CreateView):
