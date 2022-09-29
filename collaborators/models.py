@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from departments.models import Department
 from companys.models import Company
 from django.urls import reverse
+from django.utils.timezone import now
+
 
 ON_VACATION = 'VC'
 FIRED = 'FR'
@@ -19,9 +21,8 @@ class Collaborator(models.Model):
     position = models.CharField(max_length=100)
     salary = models.DecimalField(decimal_places=2, max_digits=15, blank=True, default=0)
     user = models.OneToOneField(User, on_delete=models.PROTECT)
-    start_in_company = models.DateField(null=True, blank=True)
+    start_in_company = models.DateField(default=now)
     fired_of_company = models.DateField(null=True, blank=True)
-    is_fired = models.BooleanField(default=False)
     status_collaborator = models.CharField(
         max_length=2,
         choices=COLLABORATOR_STATUS_CHOICES,

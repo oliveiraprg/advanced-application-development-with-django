@@ -1,7 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView, CreateView, DeleteView, DetailView
 from .models import Collaborator
-from departments.models import Department
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CollaboratorForm
@@ -18,8 +17,8 @@ class CollaboratorListView(LoginRequiredMixin, TemplateView):
         company = self.request.user.collaborator.company
         collaborator_list = Collaborator.objects.filter(company=company.pk)
         payroll_list = {}
-        payroll_list['payroll_sum'] = Collaborator.objects.filter(company=company.pk).filter(is_fired=False).aggregate(Sum('salary'))['salary__sum']
-        payroll_list['payroll_avg'] = Collaborator.objects.filter(company=company.pk).filter(is_fired=False).aggregate(Avg('salary'))['salary__avg']
+        payroll_list['payroll_sum'] = Collaborator.objects.filter(company=company.pk).exclude(status_collaborator='FR').aggregate(Sum('salary'))['salary__sum']
+        payroll_list['payroll_avg'] = Collaborator.objects.filter(company=company.pk).exclude(status_collaborator='FR').aggregate(Avg('salary'))['salary__avg']
         context['payroll_list'] = payroll_list
         context['collaborator_list'] = collaborator_list
         context['company'] = company

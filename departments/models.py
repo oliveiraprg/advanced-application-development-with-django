@@ -13,8 +13,8 @@ class Department(models.Model):
 
     @property
     def total_payroll(self):
-        payroll = self.collaborator_set.all().aggregate(Sum('salary'))['salary__sum']
-        return payroll
+        payroll = self.collaborator_set.exclude(status_collaborator='FR').aggregate(Sum('salary'))['salary__sum']
+        return payroll or 0
 
     def __str__(self):
         return f'{self.name}'

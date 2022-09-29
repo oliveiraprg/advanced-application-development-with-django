@@ -74,7 +74,7 @@
                                 <td>{{collaborator.departments}}</td>
                                 <td>${{collaborator.salary}}</td>
                                 <td>{{collaborator.start_in_company}}</td>
-                                <td>{{collaborator.fired_of_company}}</td>
+                                <td>{{collaborator.fired_of_company|default:''}}</td>
                                 <td>{{collaborator.get_status_collaborator_display}}</td>
                                 <td>
                                     <a href="{% url 'collaborators:edit_collaborator' collaborator.pk %}"
